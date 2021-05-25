@@ -23,125 +23,7 @@ import javax.swing.*;
  */
 public class Draw1 extends JFrame {
 
-    Random rnd = new Random();
-
-    public List<Node> genNode() {
-        List<Node> lstNode = new ArrayList<>();
-        Node n3 = new Node();
-        n3.setSTT("0");
-        n3.setX(5);
-        n3.setY(7);
-        Node n1 = new Node();
-        n1.setSTT("1");
-        n1.setX(1);
-        n1.setY(7);
-        n1.setW(7);
-        n1.setNutCha(n3.getSTT());
-        lstNode.add(n1);
-        Node n2 = new Node();
-        n2.setSTT("2");
-        n2.setX(3);
-        n2.setY(5);
-        n2.setW(5);
-        n2.setNutCha(n3.getSTT());
-        lstNode.add(n2);
-        Node n4 = new Node();
-        n4.setSTT("4");
-        n4.setX(2);
-        n4.setY(1);
-        n4.setW(10);
-        n4.setNutCha(n3.getSTT());
-        lstNode.add(n4);
-        Node n5 = new Node();
-        n5.setSTT("5");
-        n5.setX(6);
-        n5.setY(3);
-        n5.setW(7);
-        n5.setNutCha(n3.getSTT());
-        lstNode.add(n5);
-        Node n6 = new Node();
-        n6.setSTT("6");
-        n6.setX(8);
-        n6.setY(6);
-        n6.setW(1);
-        n6.setNutCha(n3.getSTT());
-        lstNode.add(n6);
-        n3.getNutCon().add(n1.getSTT());
-        n3.getNutCon().add(n2.getSTT());
-        n3.getNutCon().add(n4.getSTT());
-        n3.getNutCon().add(n5.getSTT());
-        n3.getNutCon().add(n6.getSTT());
-        lstNode.add(n3);
-        return lstNode;
-    }
-
-    public List<Node> genNode1() {
-        List<Node> lstNode = new ArrayList<>();
-        Node n3 = new Node();
-        n3.setSTT("0");
-        n3.setX(5);
-        n3.setY(7);
-        Node n1 = new Node();
-        n1.setSTT("1");
-        n1.setX(1);
-        n1.setY(7);
-        n1.setW(1);
-        n1.setNutCha(n3.getSTT());
-        lstNode.add(n1);
-        Node n2 = new Node();
-        n2.setSTT("2");
-        n2.setX(3);
-        n2.setY(5);
-        n2.setW(5);
-        n2.setNutCha(n3.getSTT());
-        lstNode.add(n2);
-        Node n4 = new Node();
-        n4.setSTT("4");
-        n4.setX(2);
-        n4.setY(1);
-        n4.setW(3);
-        n4.setNutCha(n3.getSTT());
-        lstNode.add(n4);
-        Node n5 = new Node();
-        n5.setSTT("5");
-        n5.setX(6);
-        n5.setY(3);
-        n5.setW(7);
-        n5.setNutCha(n3.getSTT());
-        lstNode.add(n5);
-        Node n6 = new Node();
-        n6.setSTT("6");
-        n6.setX(8);
-        n6.setY(6);
-        n6.setW(1);
-        n6.setNutCha(n3.getSTT());
-        lstNode.add(n6);
-        Node n7 = new Node();
-        n7.setSTT("7");
-        n7.setX(4);
-        n7.setY(3);
-        n7.setW(3);
-        n7.setNutCha(n3.getSTT());
-        lstNode.add(n7);
-        Node n8 = new Node();
-        n8.setSTT("8");
-        n8.setX(5);
-        n8.setY(2);
-        n8.setW(1);
-        n8.setNutCha(n3.getSTT());
-        lstNode.add(n8);
-        n3.getNutCon().add(n1.getSTT());
-        n3.getNutCon().add(n2.getSTT());
-        n3.getNutCon().add(n4.getSTT());
-        n3.getNutCon().add(n5.getSTT());
-        n3.getNutCon().add(n6.getSTT());
-        n3.getNutCon().add(n7.getSTT());
-        n3.getNutCon().add(n8.getSTT());
-        lstNode.add(n3);
-        return lstNode;
-    }
-
-    public List<Node> genNode90() {
+    public List<Node> genNode60() {
         List<Node> lstN = new ArrayList();
         for (int i = 0; i < 60; i++) {
             boolean checkNoDup = false;
@@ -220,13 +102,6 @@ public class Draw1 extends JFrame {
             }
         }
         return null;
-    }
-
-    public void showN(List<Node> lstN) {
-        for (int i = 0; i < lstN.size(); i++) {
-            System.out.print(lstN.get(i).getSTT() + " ");
-        }
-        System.out.println("");
     }
 
     public void showS(List<String> lstS) {
@@ -319,6 +194,8 @@ public class Draw1 extends JFrame {
             return 0.4;
         } else if (8 < w && w <= 16) {
             return 0.6;
+        } else if (16 < w && w <= 30) {
+            return 0.8;
         }
         return 0;
     }
@@ -481,7 +358,14 @@ public class Draw1 extends JFrame {
     public boolean dieuKien(int i, int j, List<Node> lstN) {// thay đổi khi đề bài thay
         if (!lstN.get(i).getSTT().equals(lstN.get(j).getSTT())) {
             if (!lstN.get(i).getSTT().equals("0") && !lstN.get(j).getSTT().equals("0")) {
-                if (!lstN.get(i).getSTT().equals(null) && !lstN.get(j).getSTT().equals(null)) {
+//                if (!lstN.get(i).getSTT().equals(null) && !lstN.get(j).getSTT().equals(null)) {
+//                    return true;
+//                }
+                String src = lstN.get(i).getSTT();
+                String dest = lstN.get(j).getSTT();
+
+                int condition = timNutCon(src,lstN).size() + timNutCha(src,lstN).size() +timNutCon(dest,lstN).size() + timNutCha(dest,lstN).size();
+                if (condition <= 4) {
                     return true;
                 }
             }
@@ -558,7 +442,7 @@ public class Draw1 extends JFrame {
         Draw1 B = new Draw1();
         B.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         List<Node> lstN = new ArrayList<>();
-        lstN.addAll(B.genNode90());
+        lstN.addAll(B.genNode60());
         //B.showN(lstN);
         List<Node> ketQua = new ArrayList<>();
         ketQua.addAll(B.thucHienThuatToan(lstN));
