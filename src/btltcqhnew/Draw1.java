@@ -143,14 +143,16 @@ public class Draw1 extends JFrame {
 
     public List<Node> genNode90() {
         List<Node> lstN = new ArrayList();
-        for (int i = 0; i < 90; i++) {
+        for (int i = 0; i < 60; i++) {
             boolean checkNoDup = false;
             int x = 0;
             int y = 0;
             Node n = new Node();
             while (!checkNoDup) {
-                x = rnd.nextInt(801);
-                y = rnd.nextInt(801);
+//                x = rnd.nextInt(801);
+//                y = rnd.nextInt(801);
+                x = (int) ((Math.random()*((901-200)+1))+200);
+                y = (int) ((Math.random()*((901-200)+1))+200);
                 checkNoDup = noDup(x, y, lstN);
                 n.setSTT("" + (i + 1));
                 n.setX(x);
@@ -160,25 +162,46 @@ public class Draw1 extends JFrame {
                 lstN.add(n);
             }
         }
-        getFromSTT("1", lstN).setW(7);
-        getFromSTT("12", lstN).setW(7);
-        getFromSTT("72", lstN).setW(7);
-        //getFromSTT("22", lstN).setW(7);// test
-        getFromSTT("17", lstN).setW(5);
-        getFromSTT("59", lstN).setW(5);
-        //getFromSTT("19", lstN).setW(5);//test
-        getFromSTT("29", lstN).setW(5);
-        getFromSTT("7", lstN).setW(10);
-        getFromSTT("23", lstN).setW(10);
-        getFromSTT("45", lstN).setW(10);
+        getFromSTT("1", lstN).setW(5);
+        getFromSTT("18", lstN).setW(5);
+        getFromSTT("48", lstN).setW(5);
+
+        getFromSTT("17", lstN).setW(2);// test
+        getFromSTT("25", lstN).setW(2);
+        getFromSTT("39", lstN).setW(2);
+
+        getFromSTT("4", lstN).setW(8);//test
+        getFromSTT("33", lstN).setW(8);
+        getFromSTT("55", lstN).setW(8);
+//        getFromSTT("23", lstN).setW(10);
+//        getFromSTT("10", lstN).setW(10);
         //getFromSTT("15", lstN).setW(10);
-        getFromSTT("5", lstN).setSTT("0");
+        getFromSTT("8", lstN).setSTT("0");
         for (int i = 0; i < lstN.size(); i++) {
             if (!lstN.get(i).getSTT().equals("0")) {
                 getFromSTT("0", lstN).getNutCon().add(lstN.get(i).getSTT());
             }
         }
+        for (int i = 0; i < lstN.size()-1; i++) {
+            for (int j = i+1; j < lstN.size(); j++) {
+                calCost(lstN.get(i),lstN.get(j)).printCost();
+            }
+        }
+
         return lstN;
+    }
+
+    public Cost calCost(Node a, Node b) {
+        Cost cost = new Cost();
+        int deltaX = a.getX() - b.getX();
+        int deltaY = a.getY() - b.getY();
+        double dist = Math.sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+
+        cost.setA(a);
+        cost.setB(b);
+        cost.setValue(dist);
+
+        return cost;
     }
 
     public boolean noDup(int x, int y, List<Node> lstN) {
@@ -248,16 +271,15 @@ public class Draw1 extends JFrame {
     public void path00(String a, String b, List<Node> lstN) {
         List<String> lstChaA = new ArrayList<>();
 
-        lstChaA.addAll(timNutCha(a, lstN));
-
-        Collections.reverse(lstChaA);
-        lstChaA.add(a);
-        lstChaA.add(b);
+        lstChaA.addAll(timNutCha(a, lstN)); // lstChaA = [m,....,0]
+        Collections.reverse(lstChaA); // lstChaA = [0,.....,m]
+        lstChaA.add(a); // lstChaA = [0,n,...,m,a]
+        lstChaA.add(b); // lstChaA = [0,n,...,m,a,b]
 
         getFromSTT("0", lstN).getNutCon().remove(lstChaA.get(1));
 
         //showS(getFromSTT("0", lstN).getNutCon());
-        lstChaA.remove(0);
+        lstChaA.remove(0); // lstChaA = [n,...m,a,b]
         //showS(lstChaA);
         for (int i = 0; i < lstChaA.size(); i++) {
             if (i == 0) {
@@ -291,12 +313,12 @@ public class Draw1 extends JFrame {
     }
 
     public double heSo(int w) {
-        if (w <= 2) {
+        if (w <= 3) {
             return 0.2;
-        } else if (2 < w && w <= 6) {
+        } else if (3 < w && w <= 8) {
             return 0.4;
-        } else if (6 < w && w <= 20) {
-            return 0.8;
+        } else if (8 < w && w <= 16) {
+            return 0.6;
         }
         return 0;
     }
@@ -397,6 +419,7 @@ public class Draw1 extends JFrame {
         cost.setValue(value);
         cost.setA(getFromSTT(a, temp));
         cost.setB(getFromSTT(b, temp));
+//        cost.printCost();
         return cost;
     }
 
@@ -552,4 +575,5 @@ public class Draw1 extends JFrame {
             }
         });
     }
+
 }

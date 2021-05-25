@@ -38,4 +38,18 @@ public class Cost {
     public void setValue(double value) {
         this.value = value;
     }
+
+    public void printCost() {
+        System.out.println("Node a:" + getA());
+        a.printNode();
+        System.out.println("Node b:" + getB());
+        b.printNode();
+        int value = (int) getValue();
+        System.out.println("Value:" + value);
+        System.out.println("Value 1:" + value*0.2);
+        System.out.println("Value 2:" + value*0.4);
+        System.out.println("Value 3:" + value*0.6);
+        System.out.println("---------------");
+        return;
+    }
 }

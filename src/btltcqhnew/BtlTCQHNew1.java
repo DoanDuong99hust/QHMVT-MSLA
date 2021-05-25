@@ -172,6 +172,7 @@ public class BtlTCQHNew1 {
         getFromSTT("5", lstN).setSTT("0");
         for (int i = 0; i < lstN.size(); i++) {
             if (!lstN.get(i).getSTT().equals("0")) {
+//                System.out.println(getFromSTT("0", lstN).getNutCon().add(lstN.get(i).getSTT()));
                 getFromSTT("0", lstN).getNutCon().add(lstN.get(i).getSTT());
             }
         }
@@ -429,7 +430,7 @@ public class BtlTCQHNew1 {
     public boolean coPhaiNutCon(String a, String b, List<Node> lstN) {
         List<String> lstNutCon = new ArrayList<>();
         lstNutCon.addAll(timNutCon(b, lstN));
-        //showS(lstNutCon);
+        showS(lstNutCon);
         for (String nutCon : lstNutCon) {
             if (nutCon.equals(a)) {
                 return true;
@@ -474,7 +475,7 @@ public class BtlTCQHNew1 {
         BtlTCQHNew1 B = new BtlTCQHNew1();
         List<Node> lstN = new ArrayList<>();
         lstN.addAll(B.genNode90());
-        //B.showN(lstN);
+        B.showN(lstN);
         double init = B.calAllCost(lstN);
         System.out.println("cost ban đầu: " + init);
         boolean kTra = true;
@@ -485,12 +486,14 @@ public class BtlTCQHNew1 {
             //B.showS(B.getFromSTT("0", lstN).getNutCon());
             List<Cost> lstCost = new ArrayList();
             //B.showN(lstTemp);
+            System.out.println(lstN.size());
             for (int i = 0; i < lstN.size(); i++) {
                 for (int j = 0; j < lstN.size(); j++) {
                     if (B.dieuKien(i, j, lstN)) {
                         boolean laNutCon = B.coPhaiNutCon(lstN.get(i).getSTT(), lstN.get(j).getSTT(), lstN);
                         boolean laNutCha = B.coPhaiNutCha(lstN.get(i).getSTT(), lstN.get(j).getSTT(), lstN);
                         boolean cungNhanh = B.coPhaiCungNhanh(lstN.get(i).getSTT(), lstN.get(j).getSTT(), lstN);
+//                        System.out.println(laNutCon);
                         if (!laNutCon) {
                             if (!laNutCha && !cungNhanh) {
                                 //B.path00(Integer.toString(i), Integer.toString(j), lstTemp);

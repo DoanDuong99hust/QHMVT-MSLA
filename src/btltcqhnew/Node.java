@@ -77,4 +77,14 @@ public class Node {
     public List<String> getNutCon() {
         return nutCon;
     }
+
+    public boolean printNode() {
+        System.out.println("STT: " + getSTT());
+        System.out.println("Toa do x: "+getX());
+        System.out.println("toa do y: "+getY());
+        System.out.println("Trong so: "+getW());
+        System.out.println("Nut cha: "+getNutCha());
+        System.out.println("cac nut con: "+getNutCon());
+        return false;
+    }
 }

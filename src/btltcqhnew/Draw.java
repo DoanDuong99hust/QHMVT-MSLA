@@ -50,6 +50,7 @@ import javax.swing.*;
  */
 public class Draw extends JFrame {
 
+    Random rnd = new Random();
     public List<Node> genNode() {
         List<Node> lstNode = new ArrayList<>();
         Node n3 = new Node();
@@ -164,6 +165,58 @@ public class Draw extends JFrame {
         n3.getNutCon().add(n8.getSTT());
         lstNode.add(n3);
         return lstNode;
+    }
+
+    public boolean noDup(int x, int y, List<Node> lstN) {
+        for (int i = 0; i < lstN.size(); i++) {
+            if (x == lstN.get(i).getX() && y == lstN.get(i).getY()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    public List<Node> genNode90() {
+        List<Node> lstN = new ArrayList();
+        for (int i = 0; i < 30; i++) {
+            boolean checkNoDup = false;
+            int x = 0;
+            int y = 0;
+            Node n = new Node();
+            while (!checkNoDup) {
+                x = rnd.nextInt(801);
+                y = rnd.nextInt(801);
+                checkNoDup = noDup(x, y, lstN);
+                n.setSTT("" + (i + 1));
+                n.setX(x);
+                n.setY(y);
+                n.setW(1);
+                if (!n.getSTT().equals("0")) {
+                    n.setNutCha("0");
+                }
+                lstN.add(n);
+            }
+        }
+
+        getFromSTT("1", lstN).setW(7);
+        getFromSTT("12", lstN).setW(7);
+        //getFromSTT("72", lstN).setW(7);
+        getFromSTT("22", lstN).setW(7);// test
+        getFromSTT("17", lstN).setW(5);
+        //getFromSTT("59", lstN).setW(5);
+        getFromSTT("19", lstN).setW(5);//test
+        getFromSTT("29", lstN).setW(5);
+        getFromSTT("7", lstN).setW(10);
+        getFromSTT("23", lstN).setW(10);
+        //getFromSTT("45", lstN).setW(10);
+        getFromSTT("15", lstN).setW(10);
+        getFromSTT("5", lstN).setSTT("0");
+        for (int i = 0; i < lstN.size(); i++) {
+            if (!lstN.get(i).getSTT().equals("0")) {
+//                System.out.println(getFromSTT("0", lstN).getNutCon().add(lstN.get(i).getSTT()));
+                getFromSTT("0", lstN).getNutCon().add(lstN.get(i).getSTT());
+            }
+        }
+        return lstN;
     }
 
     public Node getFromSTT(String STT, List<Node> lstN) {
@@ -586,7 +639,7 @@ public class Draw extends JFrame {
         Draw B = new Draw();
         B.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         List<Node> lstN = new ArrayList<>();
-        lstN.addAll(B.genNode());
+        lstN.addAll(B.genNode90());
         B.showN(lstN);
         List<Node> ketQua = new ArrayList<>();
         ketQua.addAll(B.thucHienThuatToan(lstN));
