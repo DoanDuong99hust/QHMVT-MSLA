@@ -6,131 +6,93 @@
 package btltcqhnew;
 
 import static java.lang.Math.pow;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  *
  * @author acer
  */
-public class BtlTCQHNew {
+public class MSLAProject extends JFrame {
 
-    public List<Node> genNode() {
-        List<Node> lstNode = new ArrayList<>();
-        Node n3 = new Node();
-        n3.setSTT("0");
-        n3.setX(5);
-        n3.setY(7);
-        Node n1 = new Node();
-        n1.setSTT("1");
-        n1.setX(1);
-        n1.setY(7);
-        n1.setW(7);
-        n1.setNutCha(n3.getSTT());
-        lstNode.add(n1);
-        Node n2 = new Node();
-        n2.setSTT("2");
-        n2.setX(3);
-        n2.setY(5);
-        n2.setW(5);
-        n2.setNutCha(n3.getSTT());
-        lstNode.add(n2);
-        Node n4 = new Node();
-        n4.setSTT("4");
-        n4.setX(2);
-        n4.setY(1);
-        n4.setW(10);
-        n4.setNutCha(n3.getSTT());
-        lstNode.add(n4);
-        Node n5 = new Node();
-        n5.setSTT("5");
-        n5.setX(6);
-        n5.setY(3);
-        n5.setW(7);
-        n5.setNutCha(n3.getSTT());
-        lstNode.add(n5);
-        Node n6 = new Node();
-        n6.setSTT("6");
-        n6.setX(8);
-        n6.setY(6);
-        n6.setW(1);
-        n6.setNutCha(n3.getSTT());
-        lstNode.add(n6);
-        n3.getNutCon().add(n1.getSTT());
-        n3.getNutCon().add(n2.getSTT());
-        n3.getNutCon().add(n4.getSTT());
-        n3.getNutCon().add(n5.getSTT());
-        n3.getNutCon().add(n6.getSTT());
-        lstNode.add(n3);
-        return lstNode;
+    public List<Node> genNode60() {
+        List<Node> lstN = new ArrayList();
+        for (int i = 0; i < 60; i++) {
+            boolean checkNoDup = false;
+            int x = 0;
+            int y = 0;
+            Node n = new Node();
+            while (!checkNoDup) {
+//                x = rnd.nextInt(801);
+//                y = rnd.nextInt(801);
+                x = (int) ((Math.random()*((901-200)+1))+200);
+                y = (int) ((Math.random()*((901-200)+1))+200);
+                checkNoDup = noDup(x, y, lstN);
+                n.setSTT("" + (i + 1));
+                n.setX(x);
+                n.setY(y);
+                n.setW(1);
+                n.setNutCha("0");
+                lstN.add(n);
+            }
+        }
+        getFromSTT("1", lstN).setW(5);
+        getFromSTT("18", lstN).setW(5);
+        getFromSTT("48", lstN).setW(5);
+
+        getFromSTT("17", lstN).setW(2);// test
+        getFromSTT("25", lstN).setW(2);
+        getFromSTT("39", lstN).setW(2);
+
+        getFromSTT("4", lstN).setW(8);//test
+        getFromSTT("33", lstN).setW(8);
+        getFromSTT("55", lstN).setW(8);
+
+//        getFromSTT("5", lstN).setW(20);
+//        getFromSTT("15", lstN).setW(20);
+//        getFromSTT("20", lstN).setW(20);
+
+        getFromSTT("8", lstN).setSTT("0");
+        for (int i = 0; i < lstN.size(); i++) {
+            lstN.get(i).printNode();
+            if (!lstN.get(i).getSTT().equals("0")) {
+                getFromSTT("0", lstN).getNutCon().add(lstN.get(i).getSTT());
+            }
+        }
+//        for (int i = 0; i < lstN.size()-1; i++) {
+//            for (int j = i+1; j < lstN.size(); j++) {
+//                calCost(lstN.get(i),lstN.get(j)).printCost();
+//            }
+//        }
+
+        return lstN;
+    }
+    public Cost calCost(Node a, Node b) {
+        Cost cost = new Cost();
+        int deltaX = a.getX() - b.getX();
+        int deltaY = a.getY() - b.getY();
+        double dist = Math.sqrt(pow(deltaX, 2) + pow(deltaY, 2));
+
+        cost.setA(a);
+        cost.setB(b);
+        cost.setValue(dist);
+
+        return cost;
     }
 
-    public List<Node> genNode1(){
-        List<Node> lstNode = new ArrayList<>();
-        Node n3 = new Node();
-        n3.setSTT("0");
-        n3.setX(5);
-        n3.setY(7);
-        Node n1 = new Node();
-        n1.setSTT("1");
-        n1.setX(1);
-        n1.setY(7);
-        n1.setW(1);
-        n1.setNutCha(n3.getSTT());
-        lstNode.add(n1);
-        Node n2 = new Node();
-        n2.setSTT("2");
-        n2.setX(3);
-        n2.setY(5);
-        n2.setW(5);
-        n2.setNutCha(n3.getSTT());
-        lstNode.add(n2);
-        Node n4 = new Node();
-        n4.setSTT("4");
-        n4.setX(2);
-        n4.setY(1);
-        n4.setW(3);
-        n4.setNutCha(n3.getSTT());
-        lstNode.add(n4);
-        Node n5 = new Node();
-        n5.setSTT("5");
-        n5.setX(6);
-        n5.setY(3);
-        n5.setW(7);
-        n5.setNutCha(n3.getSTT());
-        lstNode.add(n5);
-        Node n6 = new Node();
-        n6.setSTT("6");
-        n6.setX(8);
-        n6.setY(6);
-        n6.setW(1);
-        n6.setNutCha(n3.getSTT());
-        lstNode.add(n6);
-        Node n7 = new Node();
-        n7.setSTT("7");
-        n7.setX(4);
-        n7.setY(3);
-        n7.setW(3);
-        n7.setNutCha(n3.getSTT());
-        lstNode.add(n7);
-        Node n8 = new Node();
-        n8.setSTT("8");
-        n8.setX(5);
-        n8.setY(2);
-        n8.setW(1);
-        n8.setNutCha(n3.getSTT());
-        lstNode.add(n8);
-        n3.getNutCon().add(n1.getSTT());
-        n3.getNutCon().add(n2.getSTT());
-        n3.getNutCon().add(n4.getSTT());
-        n3.getNutCon().add(n5.getSTT());
-        n3.getNutCon().add(n6.getSTT());
-        n3.getNutCon().add(n7.getSTT());
-        n3.getNutCon().add(n8.getSTT());
-        lstNode.add(n3);
-        return lstNode;
+    public boolean noDup(int x, int y, List<Node> lstN) {
+        for (int i = 0; i < lstN.size(); i++) {
+            if (x == lstN.get(i).getX() && y == lstN.get(i).getY()) {
+                return false;
+            }
+        }
+        return true;
     }
+
     public Node getFromSTT(String STT, List<Node> lstN) {
         for (Node n : lstN) {
             if (n.getSTT().equals(STT)) {
@@ -140,21 +102,14 @@ public class BtlTCQHNew {
         return null;
     }
 
-    public void showN(List<Node> lstN) {
-        for (int i = 0; i < lstN.size(); i++) {
-            System.out.print(lstN.get(i).getSTT() + " ");
-        }
-        System.out.println("");
-    }
-
     public void showS(List<String> lstS) {
         for (int i = 0; i < lstS.size(); i++) {
-            System.out.print(lstS.get(i) + " ");
+            System.out.print(lstS.get(i) + ", ");
         }
         System.out.println("");
     }
 
-    public List<String> timNutCon(String n, List<Node> lstN) {
+    public List<String> findChildNode(String n, List<Node> lstN) {
         List<String> lstNutCon = new ArrayList<>();
         lstNutCon.addAll(getFromSTT(n, lstN).getNutCon());
         List<String> tempRound = new ArrayList();
@@ -168,15 +123,15 @@ public class BtlTCQHNew {
                     lstTemp.addAll(getFromSTT(tempRound.get(i), lstN).getNutCon());
                     end = false;
                 }
-                tempRound.clear();
-                tempRound.addAll(lstTemp);
-                lstNutCon.addAll(lstTemp);
             }
+            tempRound.clear();
+            tempRound.addAll(lstTemp);
+            lstNutCon.addAll(lstTemp);
         }
         return lstNutCon;
     }
 
-    public List<String> timNutCha(String a, List<Node> lstN) {
+    public List<String> findParent(String a, List<Node> lstN) {
         List<String> pre = new ArrayList<>();
         String temp = a;
         while (!temp.equals("0")) {
@@ -189,16 +144,15 @@ public class BtlTCQHNew {
     public void path00(String a, String b, List<Node> lstN) {
         List<String> lstChaA = new ArrayList<>();
 
-        lstChaA.addAll(timNutCha(a, lstN));
-
-        Collections.reverse(lstChaA);
-        lstChaA.add(a);
-        lstChaA.add(b);
+        lstChaA.addAll(findParent(a, lstN)); // lstChaA = [m,....,0]
+        Collections.reverse(lstChaA); // lstChaA = [0,.....,m]
+        lstChaA.add(a); // lstChaA = [0,n,...,m,a]
+        lstChaA.add(b); // lstChaA = [0,n,...,m,a,b]
 
         getFromSTT("0", lstN).getNutCon().remove(lstChaA.get(1));
 
         //showS(getFromSTT("0", lstN).getNutCon());
-        lstChaA.remove(0);
+        lstChaA.remove(0); // lstChaA = [n,...m,a,b]
         //showS(lstChaA);
         for (int i = 0; i < lstChaA.size(); i++) {
             if (i == 0) {
@@ -224,7 +178,7 @@ public class BtlTCQHNew {
         int w = l.getA().getW();
         //List<Node> lstNutConN = timAnc(l.getA());
         List<String> lstNutCon = new ArrayList();
-        lstNutCon.addAll(timNutCon(l.getA().getSTT(), lstN));
+        lstNutCon.addAll(findChildNode(l.getA().getSTT(), lstN));
         for (int i = 0; i < lstNutCon.size(); i++) {
             w += getFromSTT(lstNutCon.get(i), lstN).getW();
         }
@@ -232,13 +186,16 @@ public class BtlTCQHNew {
     }
 
     public double heSo(int w) {
-        if (w <= 2) {
+        if (w <= 3) {
             return 0.2;
-        } else if (2 < w && w <= 6) {
+        } else if (3 < w && w <= 8) {
             return 0.4;
-        } else if (6 < w && w <= 20) {
-            return 0.8;
+        } else if (8 < w && w <= 16) {
+            return 0.6;
         }
+//        else if (16 < w && w <= 30) {
+//            return 0.7;
+//        }
         return 0;
     }
 
@@ -255,7 +212,7 @@ public class BtlTCQHNew {
     public double C(Link l, List<Node> lstN) {
         int w = calW(l, lstN);
         double C = l.getDist() * heSo(w);
-        System.out.println("hệ số " + l.getA().getSTT() + l.getB().getSTT() + " " + heSo(w) + " " + w);
+        //System.out.println("hệ số " + l.getA().getSTT() + l.getB().getSTT() + " " + heSo(w) + " " + w);
         return C;
     }
 
@@ -272,7 +229,7 @@ public class BtlTCQHNew {
                 int deltaY = a.getY() - b.getY();
                 double dist = Math.sqrt(pow(deltaX, 2) + pow(deltaY, 2));
                 l.setDist(dist);
-                System.out.println("dist " + a.getSTT() + "" + b.getSTT() + " = " + dist);
+                //System.out.println("dist " + a.getSTT() + "" + b.getSTT() + " = " + dist);
                 int W = calW(l, lstN);
                 l.setW(W);
                 l.setName("L" + a.getSTT() + "(" + b.getSTT() + ")");
@@ -285,7 +242,7 @@ public class BtlTCQHNew {
 
     public String nutGanGoc(Node a, List<Node> lstN) {
         List<String> lstNode = new ArrayList();
-        lstNode.addAll(timNutCha(a.getSTT(), lstN));
+        lstNode.addAll(findParent(a.getSTT(), lstN));
         //System.out.println("a=" + a.getSTT());
         //showS(lstNode);
         lstNode.add(a.getSTT());
@@ -316,28 +273,29 @@ public class BtlTCQHNew {
         int w = 0;
         List<Node> lstNutCon = new ArrayList();
         //lstAnc.addAll(timAnc(getFromSTT(n, temp)));
-        List<String> lstString = timNutCon(n, temp);
-        System.out.println("nút n = " + n);
-        System.out.println("con của n: ");
-        showS(lstString);
-        for (int i = 0; i < timNutCon(n, temp).size(); i++) {
-            lstNutCon.add(getFromSTT(timNutCon(n, temp).get(i), temp));
+        List<String> lstString = findChildNode(n, temp);
+        //System.out.println("nút n = " + n);
+        //System.out.println("con của n: ");
+        //showS(lstString);
+        for (int i = 0; i < findChildNode(n, temp).size(); i++) {
+            lstNutCon.add(getFromSTT(findChildNode(n, temp).get(i), temp));
         }
-        System.out.println("nút con của " + n);
-        showN(lstNutCon);
+        //System.out.println("nút con của " + n);
+        //showN(lstNutCon);
         for (int i = 0; i < lstNutCon.size(); i++) {
             w += lstNutCon.get(i).getW();
         }
         w += getFromSTT(n, lstN).getW();
-        System.out.println("w = " + w);
+        //System.out.println("w = " + w);
         if (w > 20) {
-            System.out.println("W > 20 nen end");
+            //System.out.println("W > 20 nen end");
             return null;
         }
         double value = calAllCost(temp);
         cost.setValue(value);
         cost.setA(getFromSTT(a, temp));
         cost.setB(getFromSTT(b, temp));
+//        cost.printCost();
         return cost;
     }
 
@@ -351,22 +309,23 @@ public class BtlTCQHNew {
     }
 
     public Cost min(List<Cost> lstCost) {
-        double min = lstCost.get(0).getValue();
-        
         Cost costMin = new Cost();
-        costMin = lstCost.get(0);
-        for (Cost c : lstCost) {
-            if (c.getValue() < min) {
-                costMin = c;
-                min = c.getValue();
+        if (!lstCost.isEmpty()) {
+            double min = lstCost.get(0).getValue();
+            costMin = lstCost.get(0);
+            for (Cost c : lstCost) {
+                if (c.getValue() < min) {
+                    costMin = c;
+                    min = c.getValue();
+                }
             }
         }
         return costMin;
     }
 
-    public boolean coPhaiNutCon(String a, String b, List<Node> lstN) {
+    public boolean isChild(String a, String b, List<Node> lstN) {
         List<String> lstNutCon = new ArrayList<>();
-        lstNutCon.addAll(timNutCon(b, lstN));
+        lstNutCon.addAll(findChildNode(b, lstN));
         for (String nutCon : lstNutCon) {
             if (nutCon.equals(a)) {
                 return true;
@@ -375,9 +334,9 @@ public class BtlTCQHNew {
         return false;
     }
 
-    public boolean coPhaiNutCha(String a, String b, List<Node> lstN) {
+    public boolean isParent(String a, String b, List<Node> lstN) {
         List<String> lstNutCha = new ArrayList<>();
-        lstNutCha.addAll(timNutCha(b, lstN));
+        lstNutCha.addAll(findParent(b, lstN));
         for (String nutCha : lstNutCha) {
             if (nutCha.equals(a)) {
                 return true;
@@ -386,51 +345,54 @@ public class BtlTCQHNew {
         return false;
     }
 
-    public boolean coPhaiCungNhanh(String a, String b, List<Node> lstN){
+    public boolean isFast(String a, String b, List<Node> lstN) {
         String a1 = nutGanGoc(getFromSTT(a, lstN), lstN);
         String b1 = nutGanGoc(getFromSTT(b, lstN), lstN);
-        if(a1.equals(b1)){
+        if (a1.equals(b1)) {
             return true;
         }
         return false;
     }
-    public boolean dieuKien(int i, int j, List<Node> lstN) {// thay đổi khi đề bài thay
+
+    public boolean condition(int i, int j, List<Node> lstN) {// thay đổi khi đề bài thay
         if (!lstN.get(i).getSTT().equals(lstN.get(j).getSTT())) {
             if (!lstN.get(i).getSTT().equals("0") && !lstN.get(j).getSTT().equals("0")) {
-                if (!lstN.get(i).getSTT().equals("3") && !lstN.get(j).getSTT().equals("3")) {
+                if (!lstN.get(i).getSTT().equals(null) && !lstN.get(j).getSTT().equals(null)) {
                     return true;
                 }
+//                String src = lstN.get(i).getSTT();
+//                String dest = lstN.get(j).getSTT();
+//
+//                int condition = findChildNode(src,lstN).size() + findParent(src,lstN).size() +findChildNode(dest,lstN).size() + findParent(dest,lstN).size();
+//                if (condition <= 4) {
+//                    return true;
+//                }
             }
         }
         return false;
     }
 
-    public static void main(String[] args) {
-        // TODO code application logic here
-        BtlTCQHNew B = new BtlTCQHNew();
-        List<Node> lstN = new ArrayList<>();
-        lstN.addAll(B.genNode1());
-        B.showN(lstN);
-        double init = B.calAllCost(lstN);
+    public List<Node> thucHienThuatToan(List<Node> lstN) {
+        double init = calAllCost(lstN);
         System.out.println("cost ban đầu: " + init);
         boolean kTra = true;
         while (kTra) {
             List<Node> lstTemp = new ArrayList<>();
             //lstTemp.addAll(lstN);
-            System.out.print("nut con cua 0 ");
-            B.showS(B.getFromSTT("0", lstN).getNutCon());
+            //System.out.print("nut con cua 0 ");
+            //showS(getFromSTT("0", lstN).getNutCon());
             List<Cost> lstCost = new ArrayList();
             //B.showN(lstTemp);
             for (int i = 0; i < lstN.size(); i++) {
                 for (int j = 0; j < lstN.size(); j++) {
-                    if (B.dieuKien(i, j, lstN)) {
-                        boolean laNutCon = B.coPhaiNutCon(lstN.get(i).getSTT(), lstN.get(j).getSTT(), lstN);
-                        boolean laNutCha = B.coPhaiNutCha(lstN.get(i).getSTT(), lstN.get(j).getSTT(), lstN);
-                        boolean cungNhanh = B.coPhaiCungNhanh(lstN.get(i).getSTT(),lstN.get(j).getSTT(), lstN);
+                    if (condition(i, j, lstN)) {
+                        boolean laNutCon = isChild(lstN.get(i).getSTT(), lstN.get(j).getSTT(), lstN);
+                        boolean laNutCha = isParent(lstN.get(i).getSTT(), lstN.get(j).getSTT(), lstN);
+                        boolean cungNhanh = isFast(lstN.get(i).getSTT(), lstN.get(j).getSTT(), lstN);
                         if (!laNutCon) {
                             if (!laNutCha && !cungNhanh) {
                                 //B.path00(Integer.toString(i), Integer.toString(j), lstTemp);
-                                System.out.println("noi nut " + lstN.get(i).getSTT() + " den nut " + lstN.get(j).getSTT());
+                                //System.out.println("noi nut " + lstN.get(i).getSTT() + " den nut " + lstN.get(j).getSTT());
                                 for (int k = 0; k < lstN.size(); k++) {
                                     lstTemp.add(new Node(lstN.get(k)));
                                     for (String t : lstN.get(k).getNutCon()) {
@@ -438,13 +400,11 @@ public class BtlTCQHNew {
                                     }
                                 }
                                 Cost thoaHiep = new Cost();
-                                thoaHiep = B.tinhThoaHiep(lstTemp.get(i).getSTT(), lstTemp.get(j).getSTT(), lstTemp);
+                                thoaHiep = tinhThoaHiep(lstTemp.get(i).getSTT(), lstTemp.get(j).getSTT(), lstTemp);
                                 if (thoaHiep == null) {
                                     lstTemp.clear();
                                     continue;
                                 }
-                                System.out.println("giá mới" + lstTemp.get(i).getSTT() + lstTemp.get(j).getSTT() + " " + thoaHiep.getValue());
-                                System.out.println("thoahiep" + lstTemp.get(i).getSTT() + lstTemp.get(j).getSTT() + " " + (thoaHiep.getValue()-init));
                                 lstTemp.clear();
                                 lstCost.add(thoaHiep);
                             }
@@ -452,34 +412,48 @@ public class BtlTCQHNew {
                     }
                 }
             }
-            Cost temp = B.min(lstCost);
+            Cost temp = min(lstCost);
             int soAm = 0;
-            System.out.println("init cũ = " + init);
+            //System.out.println("init cũ = " + init);
             for (Cost c : lstCost) {
                 if (c.getValue() < init) {
                     soAm++;
                 }
 
             }
-            System.out.println("số các th âm  = " + soAm);
-            kTra = B.hetThuatToan(init, lstCost);
+            //System.out.println("số các th âm  = " + soAm);
+            kTra = hetThuatToan(init, lstCost);
 
             if (kTra) {
                 System.out.println("nối nút " + temp.getA().getSTT() + " đến nút " + temp.getB().getSTT());
-                B.path00(temp.getA().getSTT(), temp.getB().getSTT(), lstN);
+                path00(temp.getA().getSTT(), temp.getB().getSTT(), lstN);
             }
-            init = B.calAllCost(lstN);
+            init = calAllCost(lstN);
             System.out.println("init = " + init);
             System.out.println("hết round");
         }
+        return lstN;
+    }
 
-        /*System.out.println("aaaaa" + B.getFromSTT("0", lstTemp).getNutCon());
-        B.path00("1", "2", lstTemp);
-        System.out.println("lstN 1 cha" + B.getFromSTT("1", lstN).getNutCha());
-        System.out.println("lstTemp 1 cha" + B.getFromSTT("1", lstTemp).getNutCha());
-        List<Cost> lstCost = new ArrayList();
-        Cost c = B.tinhThoaHiep("1", "2", lstN);
-        System.out.println("cost 12 " + c.getValue());*/
+    public static void main(String[] args) {
+        MSLAProject mslaProject = new MSLAProject();
+        mslaProject.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        List<Node> lstN = new ArrayList<>();
+        lstN.addAll(mslaProject.genNode60());
+        List<Node> ketQua = new ArrayList<>();
+        ketQua.addAll(mslaProject.thucHienThuatToan(lstN));
+        mslaProject.showS(mslaProject.findChildNode("0", lstN));
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                mslaProject.setTitle("mslaProject");
+                mslaProject.setSize(1000, 1000);
+                nNodePanel sub = new nNodePanel(lstN);
+                mslaProject.add(sub);
+                mslaProject.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                mslaProject.setVisible(true);
+            }
+        });
     }
 
 }

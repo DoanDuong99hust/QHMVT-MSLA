@@ -89,16 +89,24 @@ public class nNodePanel extends JPanel {
                     // System.out.print(n1.getSTT() + " ");
                 }
                 w += getFromSTT(n.getSTT(), lstN).getW();
-                if (w <= 2) {
-                    g2d.setColor(Color.green);
+                if (w <= 3) {
+                    g2d.setColor(Color.cyan);
                     g2d.drawLine(x, y, x1, y1);
-                } else if (2 < w && w <= 6) {
-                    g2d.setColor(Color.yellow);
+                } else if (3 < w && w <= 8) {
+                    g2d.setColor(Color.magenta);
                     g2d.drawLine(x, y, x1, y1);
-                } else if (6 < w && w <= 20) {
+                } else if (8 < w && w <= 16) {
                     g2d.setColor(Color.red);
                     g2d.drawLine(x, y, x1, y1);
-                } else if (w > 20) {
+                }
+//                else if(w > 16) {
+//                    g2d.setColor(Color.darkGray);
+//                    g2d.drawLine(x, y, x1, y1);
+//                }
+                else if (16 < w && w <= 30) {
+                    g2d.setColor(Color.blue);
+                    g2d.drawLine(x, y, x1, y1);
+                } else if (w >= 30) {
                     g2d.setColor(Color.black);
                     g2d.drawLine(x, y, x1, y1);
                 }
@@ -116,7 +124,7 @@ public class nNodePanel extends JPanel {
     public void drawNutGoc(Graphics g, Node n) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.RED);
-        g2d.drawString("5", 100 + n.getX(), 900 - n.getY());
+        g2d.drawString("8", 100 + n.getX(), 900 - n.getY());
     }
 
     public void paint(Graphics g) {

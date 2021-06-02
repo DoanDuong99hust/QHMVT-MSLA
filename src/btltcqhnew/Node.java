@@ -85,6 +85,7 @@ public class Node {
         System.out.println("Trong so: "+getW());
         System.out.println("Nut cha: "+getNutCha());
         System.out.println("cac nut con: "+getNutCon());
+        System.out.println("----------------");
         return false;
     }
 }
